@@ -37,6 +37,8 @@ class ParticleSystem
         {
             POSITION,
             VELOCITY,
+			CELLID,
+			CELLTYPE,
         };
 
         void update(float deltaTime);
@@ -150,6 +152,8 @@ class ParticleSystem
         // CPU data
         float *m_hPos;              // particle positions
         float *m_hVel;              // particle velocities
+		float *m_hCellID;			// Id of the cell that particle blongs to 
+		float *m_hCellType;			// cell type 
 
         uint  *m_hParticleHash;
         uint  *m_hCellStart;
@@ -158,6 +162,8 @@ class ParticleSystem
         // GPU data
         float *m_dPos;
         float *m_dVel;
+		float *m_dCellID;			
+		float *m_dCellType;	
 
         float *m_dSortedPos;
         float *m_dSortedVel;
