@@ -95,6 +95,12 @@ float collideDamping = 0.02f;;
 float collideShear = 0.1f;
 float collideAttraction = 0.0f;
 
+float intraCellularForce = 0.0f;
+float interCellularForce= 0.0f;
+float WhiteNoise= 0.0f;
+
+
+
 ParticleSystem *psystem = 0;
 
 // fps

@@ -70,6 +70,11 @@ ParticleSystem::ParticleSystem(uint numParticles, uint3 gridSize, bool bUseOpenG
     m_params.gravity = make_float3(0.0f, -0.0003f, 0.0f);
     m_params.globalDamping = 1.0f;
 
+	/////////////
+	m_params.interCellularForce = 0.0f;
+	m_params.intraCellularForce = 0.0f;
+	m_params.WhiteNoise = 0.0f;
+
     _initialize(numParticles);
 }
 

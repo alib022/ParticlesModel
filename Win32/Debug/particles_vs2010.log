@@ -1,8 +1,5 @@
 ﻿  Skipping CUDA source file particles_kernel.cuh (excluded from build).
-  shaders.cpp
-  render_particles.cpp
-  particleSystem.cpp
   particles.cpp
-  Generating Code...
+  LINK : ../../bin/win32/Debug//particles.exe not found or not built by the last incremental link; performing full link
      Creating library ../../bin/win32/Debug/particles.lib and object ../../bin/win32/Debug/particles.exp
   particles_vs2010.vcxproj -> C:\Users\Ali.First-left-PC\Documents\GitHub\ParticlesModel\../../bin/win32/Debug/particles.exe
