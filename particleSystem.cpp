@@ -131,8 +131,15 @@ ParticleSystem::_initialize(int numParticles)
     // allocate host storage
     m_hPos = new float[m_numParticles*4];
     m_hVel = new float[m_numParticles*4];
+
+	m_hCellID = new float[m_numParticles];
+	m_hCellType = new float[m_numParticles];
+
     memset(m_hPos, 0, m_numParticles*4*sizeof(float));
     memset(m_hVel, 0, m_numParticles*4*sizeof(float));
+	
+	memset(m_hCellID, 0, m_numParticles*sizeof(float));
+	memset(m_hCellType, 0, m_numParticles*sizeof(float));
 
     m_hCellStart = new uint[m_numGridCells];
     memset(m_hCellStart, 0, m_numGridCells*sizeof(uint));
@@ -395,6 +402,15 @@ ParticleSystem::setArray(ParticleArray array, const float *data, int start, int 
         case VELOCITY:
             copyArrayToDevice(m_dVel, data, start*4*sizeof(float), count*4*sizeof(float));
             break;
+
+		case CELLID:
+
+			cudaMemcpy(m_dCellID, data, start*sizeof(float), cudaMemcpyHostToDevice);
+			break;
+
+		case CELLTYPE:
+			cudaMemcpy(m_dCellType, data, start*sizeof(float), cudaMemcpyHostToDevice);
+			break;
     }
 }
 
@@ -455,8 +471,8 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
           m_hVel[index*4+3] = 0.0f;
 
 
-		   //m_hCellID[index] = CellID;
-		   //m_hCellType[index] = CellType;
+		   m_hCellID[index] = CellID;
+		   m_hCellType[index] = CellType;
 
 		  
 		  std::cout <<"Particle CellID:" << m_hPos[index*4] <<"\n";
@@ -471,44 +487,46 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
 void
 ParticleSystem::reset(ParticleConfig config)
 {
-    switch (config)
-    {
-        default:
-        case CONFIG_RANDOM:
-            {
-                int p = 0, v = 0;
+    //switch (config)
+    //{
+    //    default:
+    //    case CONFIG_RANDOM:
+    //        {
+    //            int p = 0, v = 0;
 
-                for (uint i=0; i < m_numParticles; i++)
-                {
-                    float point[3];
-                    point[0] = frand();
-                    point[1] = frand();
-                    point[2] = frand();
-                    m_hPos[p++] = 2 * (point[0] - 0.5f);
-                    m_hPos[p++] = 2 * (point[1] - 0.5f);
-                    m_hPos[p++] = 2 * (point[2] - 0.5f);
-                    m_hPos[p++] = 1.0f; // radius
-                    m_hVel[v++] = 0.0f;
-                    m_hVel[v++] = 0.0f;
-                    m_hVel[v++] = 0.0f;
-                    m_hVel[v++] = 0.0f;
-                }
-            }
-            break;
+    //            for (uint i=0; i < m_numParticles; i++)
+    //            {
+    //                float point[3];
+    //                point[0] = frand();
+    //                point[1] = frand();
+    //                point[2] = frand();
+    //                m_hPos[p++] = 2 * (point[0] - 0.5f);
+    //                m_hPos[p++] = 2 * (point[1] - 0.5f);
+    //                m_hPos[p++] = 2 * (point[2] - 0.5f);
+    //                m_hPos[p++] = 1.0f; // radius
+    //                m_hVel[v++] = 0.0f;
+    //                m_hVel[v++] = 0.0f;
+    //                m_hVel[v++] = 0.0f;
+    //                m_hVel[v++] = 0.0f;
+    //            }
+    //        }
+    //        break;
 
-        case CONFIG_GRID:
-            {
+    //    case CONFIG_GRID:
+    //        {
                 float jitter = m_params.particleRadius*0.01f;
                 uint s = (int) ceilf(powf((float) m_numParticles, 1.0f / 3.0f));
                 uint gridSize[3];
                 gridSize[0] = gridSize[1] = gridSize[2] = s;
                 initGrid(gridSize, m_params.particleRadius*2.0f, jitter, m_numParticles);
-            }
-            break;
-    }
+            //}
+            //break;
+    //}
 
     setArray(POSITION, m_hPos, 0, m_numParticles);
     setArray(VELOCITY, m_hVel, 0, m_numParticles);
+	setArray(CELLID, m_hCellID, 0, m_numParticles);
+	setArray(CELLTYPE, m_hCellType, 0, m_numParticles);
 }
 
 void
@@ -547,4 +565,6 @@ ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacin
 
     setArray(POSITION, m_hPos, start, index);
     setArray(VELOCITY, m_hVel, start, index);
+	setArray(CELLID, m_hCellID, start, index);
+	setArray(CELLTYPE, m_hCellType, 0, m_numParticles);
 }
