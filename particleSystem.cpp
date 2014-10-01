@@ -36,6 +36,8 @@ ParticleSystem::ParticleSystem(uint numParticles, uint3 gridSize, bool bUseOpenG
     m_numParticles(numParticles),
     m_hPos(0),
     m_hVel(0),
+	m_hCellID(0),
+	m_hCellType(0),
     m_dPos(0),
     m_dVel(0),
     m_gridSize(gridSize),
@@ -406,7 +408,7 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
 {
     srand(1973);
 
-    for (uint z=0; z<size[2]; z++)
+    /*for (uint z=0; z<size[2]; z++)
     {
         for (uint y=0; y<size[1]; y++)
         {
@@ -428,7 +430,42 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
                 }
             }
         }
-    }
+    }*/
+
+	std::string line;
+  
+	  float CellIndex, PX, PY, PZ, CellID, CellType;
+	  int index = 0;
+	  std::ifstream ifs("test.txt");
+	  while(getline (ifs,line)){
+
+		  std::istringstream iss(line);
+		  std::cout << "Line #"<< index <<" of the file is " << line << ".\n";
+		  if (!(iss >> PX >> PY >> PZ >> CellID >> CellType)) {break;}
+
+		  
+		  m_hPos[index*4] = PX;
+		  m_hPos[index*4+1] = PY;
+		  m_hPos[index*4+2] = PZ;
+		  m_hPos[index*4+3] = 1.0f;
+
+		  m_hVel[index*4] = 0.0f;
+          m_hVel[index*4+1] = 0.0f;
+          m_hVel[index*4+2] = 0.0f;
+          m_hVel[index*4+3] = 0.0f;
+
+
+		   //m_hCellID[index] = CellID;
+		   //m_hCellType[index] = CellType;
+
+		  
+		  std::cout <<"Particle CellID:" << m_hPos[index*4] <<"\n";
+		  std::cout <<"Particle PosZ:" << m_hPos[index*4+2] <<"\n";
+	  
+		  index++;
+
+		  std::cout <<"----------------------------"  <<"\n";
+	  }
 }
 
 void
