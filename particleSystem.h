@@ -134,6 +134,8 @@ class ParticleSystem
             return m_params.cellSize;
         }
 
+		
+
         void addSphere(int index, float *pos, float *vel, int r, float spacing);
 
     protected: // methods

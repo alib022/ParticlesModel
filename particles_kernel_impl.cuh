@@ -55,6 +55,8 @@ struct integrate_functor
         vel += params.gravity * deltaTime;
         vel *= params.globalDamping;
 
+		
+
         // new position = old position + velocity * deltaTime
         pos += vel * deltaTime;
 

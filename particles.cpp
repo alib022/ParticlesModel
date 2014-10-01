@@ -95,9 +95,7 @@ float collideDamping = 0.02f;;
 float collideShear = 0.1f;
 float collideAttraction = 0.0f;
 
-float intraCellularForce = 0.0f;
-float interCellularForce= 0.0f;
-float WhiteNoise= 0.0f;
+
 
 
 
@@ -247,6 +245,8 @@ void display()
         psystem->setCollideDamping(collideDamping);
         psystem->setCollideShear(collideShear);
         psystem->setCollideAttraction(collideAttraction);
+		
+		
 
         psystem->update(timestep);
 
@@ -639,6 +639,8 @@ void initParams()
         collideShear = 0.0f;
         collideAttraction = 0.0f;
 
+		
+
     }
     else
     {
@@ -654,6 +656,8 @@ void initParams()
         params->AddParam(new Param<float>("collide damping", collideDamping, 0.0f, 0.1f, 0.001f, &collideDamping));
         params->AddParam(new Param<float>("collide shear"  , collideShear  , 0.0f, 0.1f, 0.001f, &collideShear));
         params->AddParam(new Param<float>("collide attract", collideAttraction, 0.0f, 0.1f, 0.001f, &collideAttraction));
+
+		
     }
 }
 

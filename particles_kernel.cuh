@@ -33,9 +33,7 @@ struct SimParams
     float globalDamping;
     float particleRadius;
 
-	float intraCellularForce;
-	float interCellularForce;
-	float WhiteNoise;
+	
 
 
     uint3 gridSize;
