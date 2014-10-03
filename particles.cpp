@@ -85,15 +85,15 @@ int numIterations = 0; // run until exit
 
 // simulation parameters
 float timestep = 0.5f;
-float damping = 1.0f;
-float gravity = 0.0003f;
+float damping = 0.5f;
+float gravity = 0.003f;
 int iterations = 1;
 int ballr = 10;
 
-float collideSpring = 0.5f;;
-float collideDamping = 0.02f;;
+float collideSpring = 0.001f;
+float collideDamping = 0.02f;
 float collideShear = 0.1f;
-float collideAttraction = 0.0f;
+float collideAttraction = 0.0000001f;
 
 
 
@@ -637,7 +637,7 @@ void initParams()
         collideSpring = 0.0f;
         collideDamping = 0.0f;
         collideShear = 0.0f;
-        collideAttraction = 0.0f;
+        collideAttraction = 0.01f;
 
 		
 

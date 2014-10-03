@@ -33,8 +33,8 @@ struct SimParams
     float globalDamping;
     float particleRadius;
 
-	
-
+	//float interCellular;
+	float attraction;
 
     uint3 gridSize;
     uint numCells;
@@ -47,7 +47,7 @@ struct SimParams
     float spring;
     float damping;
     float shear;
-    float attraction;
+    
     float boundaryDamping;
 };
 

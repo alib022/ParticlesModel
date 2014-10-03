@@ -47,7 +47,7 @@ ParticleSystem::ParticleSystem(uint numParticles, uint3 gridSize, bool bUseOpenG
     m_numGridCells = m_gridSize.x*m_gridSize.y*m_gridSize.z;
     float3 worldSize = make_float3(2.0f, 2.0f, 2.0f);
 
-    m_gridSortBits = 18;    // increase this for larger grids
+    m_gridSortBits = 36;    // increase this for larger grids
 
     // set simulation parameters
     m_params.gridSize = m_gridSize;
@@ -58,6 +58,9 @@ ParticleSystem::ParticleSystem(uint numParticles, uint3 gridSize, bool bUseOpenG
     m_params.colliderPos = make_float3(-1.2f, -0.8f, 0.8f);
     m_params.colliderRadius = 0.2f;
 
+	//cellular forces
+	m_params.attraction = 0.01f;
+
     m_params.worldOrigin = make_float3(-1.0f, -1.0f, -1.0f);
     //    m_params.cellSize = make_float3(worldSize.x / m_gridSize.x, worldSize.y / m_gridSize.y, worldSize.z / m_gridSize.z);
     float cellSize = m_params.particleRadius * 2.0f;  // cell size equal to particle diameter
@@ -66,10 +69,10 @@ ParticleSystem::ParticleSystem(uint numParticles, uint3 gridSize, bool bUseOpenG
     m_params.spring = 0.5f;
     m_params.damping = 0.02f;
     m_params.shear = 0.1f;
-    m_params.attraction = 0.0f;
+    
     m_params.boundaryDamping = -0.5f;
 
-    m_params.gravity = make_float3(0.0f, -0.0003f, 0.0f);
+    m_params.gravity = make_float3(0.0f, 0.0f, 0.0f);
     m_params.globalDamping = 1.0f;
 
 	
@@ -102,23 +105,27 @@ inline float lerp(float a, float b, float t)
 // create a color ramp
 void colorRamp(float t, float *r)
 {
-    const int ncolors = 7;
+    const int ncolors = 2;
     float c[ncolors][3] =
     {
         { 1.0, 0.0, 0.0, },
-        { 1.0, 0.5, 0.0, },
-        { 1.0, 1.0, 0.0, },
+        { 1.0, 0.0, 1.0, },
+       /* { 1.0, 1.0, 0.0, },
         { 0.0, 1.0, 0.0, },
         { 0.0, 1.0, 1.0, },
         { 0.0, 0.0, 1.0, },
-        { 1.0, 0.0, 1.0, },
+        { 1.0, 0.0, 1.0, },*/
     };
     t = t * (ncolors-1);
     int i = (int) t;
     float u = t - floor(t);
-    r[0] = lerp(c[i][0], c[i+1][0], u);
+    /*r[0] = lerp(c[i][0], c[i+1][0], u);
     r[1] = lerp(c[i][1], c[i+1][1], u);
-    r[2] = lerp(c[i][2], c[i+1][2], u);
+    r[2] = lerp(c[i][2], c[i+1][2], u);*/
+
+	r[0] = c[i+1][0];
+	r[1] = c[i+1][1];
+	r[2] = c[i+1][2];
 }
 
 void
@@ -372,6 +379,11 @@ ParticleSystem::getArray(ParticleArray array)
             hdata = m_hVel;
             ddata = m_dVel;
             break;
+
+		case CELLID:
+			hdata = m_hCellID;
+			ddata = m_dCellID;
+			break;
     }
 
     copyArrayFromDevice(hdata, ddata, &cuda_vbo_resource, m_numParticles*4*sizeof(float));
