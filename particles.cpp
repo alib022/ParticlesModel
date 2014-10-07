@@ -53,9 +53,9 @@
 #define THRESHOLD         0.30f
 
 #define GRID_SIZE       64
-#define NUM_PARTICLES   2048
+#define NUM_PARTICLES   1024
 
-const uint width = 800, height = 600;
+const uint width = 640, height = 480;
 
 // view params
 int ox, oy;
@@ -84,16 +84,18 @@ uint3 gridSize;
 int numIterations = 0; // run until exit
 
 // simulation parameters
+
+
 float timestep = 0.5f;
 float damping = 0.5f;
-float gravity = 0.003f;
+float gravity = 0.5f;
 int iterations = 1;
 int ballr = 10;
 
-float collideSpring = 0.001f;
+float collideSpring = 0.05f;
 float collideDamping = 0.02f;
 float collideShear = 0.1f;
-float collideAttraction = 0.0000001f;
+float collideAttraction = 0.05f;
 
 
 

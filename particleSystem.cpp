@@ -105,27 +105,23 @@ inline float lerp(float a, float b, float t)
 // create a color ramp
 void colorRamp(float t, float *r)
 {
-    const int ncolors = 2;
+    const int ncolors = 7;
     float c[ncolors][3] =
     {
         { 1.0, 0.0, 0.0, },
-        { 1.0, 0.0, 1.0, },
-       /* { 1.0, 1.0, 0.0, },
+        { 1.0, 0.5, 0.0, },
+        { 1.0, 1.0, 0.0, },
         { 0.0, 1.0, 0.0, },
         { 0.0, 1.0, 1.0, },
         { 0.0, 0.0, 1.0, },
-        { 1.0, 0.0, 1.0, },*/
+        { 1.0, 0.0, 1.0, },
     };
     t = t * (ncolors-1);
     int i = (int) t;
     float u = t - floor(t);
-    /*r[0] = lerp(c[i][0], c[i+1][0], u);
+    r[0] = lerp(c[i][0], c[i+1][0], u);
     r[1] = lerp(c[i][1], c[i+1][1], u);
-    r[2] = lerp(c[i][2], c[i+1][2], u);*/
-
-	r[0] = c[i+1][0];
-	r[1] = c[i+1][1];
-	r[2] = c[i+1][2];
+    r[2] = lerp(c[i][2], c[i+1][2], u);
 }
 
 void
@@ -545,6 +541,7 @@ void
 ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacing)
 {
     uint index = start;
+	std::cout <<"Add Sphere" << "\n";
 
     for (int z=-r; z<=r; z++)
     {
@@ -558,6 +555,8 @@ ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacin
                 float l = sqrtf(dx*dx + dy*dy + dz*dz);
                 float jitter = m_params.particleRadius*0.01f;
 
+				
+
                 if ((l <= m_params.particleRadius*2.0f*r) && (index < m_numParticles))
                 {
                     m_hPos[index*4]   = pos[0] + dx + (frand()*2.0f-1.0f)*jitter;
@@ -569,7 +568,16 @@ ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacin
                     m_hVel[index*4+1] = vel[1];
                     m_hVel[index*4+2] = vel[2];
                     m_hVel[index*4+3] = vel[3];
-                    index++;
+
+					m_hCellType[index] = (float)(rand() % ((3+1) - 1) + 1);
+                    
+
+					std::cout <<"Particle CellType:" << m_hCellType[index] <<"\n";
+				  std::cout <<"Particle PosX:" << m_hPos[index*4] <<"\n";
+	  
+				  index++;
+
+				  std::cout <<"----------------------------"  <<"\n";
                 }
             }
         }

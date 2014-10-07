@@ -259,8 +259,10 @@ float3 collideSpheres(float3 posA, float3 posB,
 
 		//force += noise;
 		//Intercellular Interaction Potential
-		float dV2dr = 4 * attraction * ((pow(2*radiusA,12)/(pow(dist,12)))+(pow(2*radiusA,6)/ (pow(dist,6))));
-		force -= dV2dr*relPos;
+		//float dV2dr = 4* attraction * ( (6* pow(radiusA,6) )/pow(dist,7) - (12* pow(radiusB,12))/pow(dist,13));
+		//float dV2dr = 4 * attraction * ((pow(2*radiusA,12)/(pow(dist,12)))-(pow(2*radiusA,6)/ (pow(dist,6))));
+		float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5, 7)) - 12 / (radiusB * pow(2.5,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
+		force -=  dV2dr*relPos;
     }
 
     return force;
@@ -351,12 +353,6 @@ void collideD(float4 *newVel,               // output: new velocity
     newVel[originalIndex] = make_float4(vel + force, 0.0f);
 }
 
-//Random Generator --> CURAND Initialization
-__global__ void setup_kernel(unsigned long seed, curandState *state)
-{
-    int id = threadIdx.x + blockIdx.x * blockDim.x;
-    curand_init(seed, id, 0, &state[id]);
-//  curand_init(7+id, id, 0, &state[id]);
-}
+
 
 #endif
