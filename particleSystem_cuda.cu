@@ -121,13 +121,7 @@ extern "C"
         }
     }
 
-    void setParameters(SimParams *hostParams)
-    {
-        // copy parameters to constant memory
-        checkCudaErrors(cudaMemcpyToSymbol(params, hostParams, sizeof(SimParams)));
-    }
-
-    //Round a / b to nearest higher integer value
+	 //Round a / b to nearest higher integer value
     uint iDivUp(uint a, uint b)
     {
         return (a % b != 0) ? (a / b + 1) : (a / b);
@@ -138,6 +132,26 @@ extern "C"
     {
         numThreads = min(blockSize, n);
         numBlocks = iDivUp(n, numThreads);
+    }
+
+	//Initialize States
+	void setStates(curandState *m_dStates, uint numParticles)
+	{
+		uint numThreads, numBlocks;
+        computeGridSize(numParticles, 256, numBlocks, numThreads);
+
+        // execute the kernel
+        setup_kernel<<< numBlocks, numThreads >>>(m_dStates, numParticles);
+
+        // check if kernel invocation generated an error
+        getLastCudaError("Kernel execution failed");
+
+	}
+
+    void setParameters(SimParams *hostParams)
+    {
+        // copy parameters to constant memory
+        checkCudaErrors(cudaMemcpyToSymbol(params, hostParams, sizeof(SimParams)));
     }
 
     void integrateSystem(float *pos,
@@ -176,10 +190,12 @@ extern "C"
                                      uint  *cellEnd,
                                      float *sortedPos,
                                      float *sortedVel,
+									 curandState *sortedStates,
                                      uint  *gridParticleHash,
                                      uint  *gridParticleIndex,
                                      float *oldPos,
                                      float *oldVel,
+									 curandState *oldStates,
                                      uint   numParticles,
                                      uint   numCells)
     {
@@ -200,10 +216,12 @@ extern "C"
             cellEnd,
             (float4 *) sortedPos,
             (float4 *) sortedVel,
+			sortedStates,
             gridParticleHash,
             gridParticleIndex,
             (float4 *) oldPos,
             (float4 *) oldVel,
+			oldStates,
             numParticles);
         getLastCudaError("Kernel execution failed: reorderDataAndFindCellStartD");
 
@@ -216,6 +234,7 @@ extern "C"
     void collide(float *newVel,
                  float *sortedPos,
                  float *sortedVel,
+				 curandState *sortedStates,
                  uint  *gridParticleIndex,
                  uint  *cellStart,
                  uint  *cellEnd,
@@ -237,6 +256,7 @@ extern "C"
         collideD<<< numBlocks, numThreads >>>((float4 *)newVel,
                                               (float4 *)sortedPos,
                                               (float4 *)sortedVel,
+											  sortedStates,
                                               gridParticleIndex,
                                               cellStart,
                                               cellEnd,

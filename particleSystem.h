@@ -16,6 +16,7 @@
 #define DO_TIMING 0
 
 #include <helper_functions.h>
+#include <curand_kernel.h> //curand header for random number generator
 #include "particles_kernel.cuh"
 #include "vector_functions.h"
 
@@ -166,9 +167,11 @@ class ParticleSystem
         float *m_dVel;
 		float *m_dCellID;			
 		float *m_dCellType;	
+		curandState *m_dStates;
 
         float *m_dSortedPos;
         float *m_dSortedVel;
+		curandState *m_dSortedStates;
 
         // grid data for sorting method
         uint  *m_dGridParticleHash; // grid hash value for each particle

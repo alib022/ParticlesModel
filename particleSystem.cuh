@@ -25,6 +25,7 @@ extern "C"
     void *mapGLBufferObject(struct cudaGraphicsResource **cuda_vbo_resource);
     void unmapGLBufferObject(struct cudaGraphicsResource *cuda_vbo_resource);
 
+	void setStates(curandState *m_dStates, uint numParticles);
 
     void setParameters(SimParams *hostParams);
 
@@ -42,16 +43,19 @@ extern "C"
                                      uint  *cellEnd,
                                      float *sortedPos,
                                      float *sortedVel,
+									 curandState *sortedStates,
                                      uint  *gridParticleHash,
                                      uint  *gridParticleIndex,
                                      float *oldPos,
                                      float *oldVel,
+									 curandState *oldStates,
                                      uint   numParticles,
                                      uint   numCells);
 
     void collide(float *newVel,
                  float *sortedPos,
                  float *sortedVel,
+				 curandState *sortedStates,
                  uint  *gridParticleIndex,
                  uint  *cellStart,
                  uint  *cellEnd,

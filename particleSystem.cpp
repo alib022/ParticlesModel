@@ -138,6 +138,7 @@ ParticleSystem::_initialize(int numParticles)
 	m_hCellID = new float[m_numParticles];
 	m_hCellType = new float[m_numParticles];
 
+
     memset(m_hPos, 0, m_numParticles*4*sizeof(float));
     memset(m_hVel, 0, m_numParticles*4*sizeof(float));
 	
@@ -164,9 +165,13 @@ ParticleSystem::_initialize(int numParticles)
     }
 
     allocateArray((void **)&m_dVel, memSize);
+	
+	allocateArray((void**)&m_dStates, m_numParticles*sizeof(curandState));
 
     allocateArray((void **)&m_dSortedPos, memSize);
     allocateArray((void **)&m_dSortedVel, memSize);
+
+	allocateArray((void**)&m_dSortedStates, m_numParticles*sizeof(curandState));
 
     allocateArray((void **)&m_dGridParticleHash, m_numParticles*sizeof(uint));
     allocateArray((void **)&m_dGridParticleIndex, m_numParticles*sizeof(uint));
@@ -221,10 +226,12 @@ ParticleSystem::_finalize()
     delete [] m_hVel;
     delete [] m_hCellStart;
     delete [] m_hCellEnd;
-
+	
     freeArray(m_dVel);
+	freeArray(m_dStates);
     freeArray(m_dSortedPos);
     freeArray(m_dSortedVel);
+	freeArray(m_dSortedStates);
 
     freeArray(m_dGridParticleHash);
     freeArray(m_dGridParticleIndex);
@@ -288,10 +295,12 @@ ParticleSystem::update(float deltaTime)
         m_dCellEnd,
         m_dSortedPos,
         m_dSortedVel,
+		m_dSortedStates,
         m_dGridParticleHash,
         m_dGridParticleIndex,
         dPos,
         m_dVel,
+		m_dStates,
         m_numParticles,
         m_numGridCells);
 
@@ -300,6 +309,7 @@ ParticleSystem::update(float deltaTime)
         m_dVel,
         m_dSortedPos,
         m_dSortedVel,
+		m_dSortedStates,
         m_dGridParticleIndex,
         m_dCellStart,
         m_dCellEnd,
@@ -432,7 +442,7 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
 {
     srand(1973);
 
-    /*for (uint z=0; z<size[2]; z++)
+    for (uint z=0; z<size[2]; z++)
     {
         for (uint y=0; y<size[1]; y++)
         {
@@ -454,9 +464,9 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
                 }
             }
         }
-    }*/
+    }
 
-	std::string line;
+	/*std::string line;
   
 	  float CellIndex, PX, PY, PZ, CellID, CellType;
 	  int index = 0;
@@ -489,52 +499,56 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
 		  index++;
 
 		  std::cout <<"----------------------------"  <<"\n";
-	  }
+	  }*/
 }
 
 void
 ParticleSystem::reset(ParticleConfig config)
 {
-    //switch (config)
-    //{
-    //    default:
-    //    case CONFIG_RANDOM:
-    //        {
-    //            int p = 0, v = 0;
+    switch (config)
+    {
+        default:
+        case CONFIG_RANDOM:
+            {
+                int p = 0, v = 0;
 
-    //            for (uint i=0; i < m_numParticles; i++)
-    //            {
-    //                float point[3];
-    //                point[0] = frand();
-    //                point[1] = frand();
-    //                point[2] = frand();
-    //                m_hPos[p++] = 2 * (point[0] - 0.5f);
-    //                m_hPos[p++] = 2 * (point[1] - 0.5f);
-    //                m_hPos[p++] = 2 * (point[2] - 0.5f);
-    //                m_hPos[p++] = 1.0f; // radius
-    //                m_hVel[v++] = 0.0f;
-    //                m_hVel[v++] = 0.0f;
-    //                m_hVel[v++] = 0.0f;
-    //                m_hVel[v++] = 0.0f;
-    //            }
-    //        }
-    //        break;
+                for (uint i=0; i < m_numParticles; i++)
+                {
+                    float point[3];
+                    point[0] = frand();
+                    point[1] = frand();
+                    point[2] = frand();
+                    m_hPos[p++] = 2 * (point[0] - 0.5f);
+                    m_hPos[p++] = 2 * (point[1] - 0.5f);
+                    m_hPos[p++] = 2 * (point[2] - 0.5f);
+                    m_hPos[p++] = 1.0f; // radius
+                    m_hVel[v++] = 0.0f;
+                    m_hVel[v++] = 0.0f;
+                    m_hVel[v++] = 0.0f;
+                    m_hVel[v++] = 0.0f;
+                }
+            }
+            break;
 
-    //    case CONFIG_GRID:
-    //        {
+        case CONFIG_GRID:
+            {
                 float jitter = m_params.particleRadius*0.01f;
                 uint s = (int) ceilf(powf((float) m_numParticles, 1.0f / 3.0f));
                 uint gridSize[3];
                 gridSize[0] = gridSize[1] = gridSize[2] = s;
                 initGrid(gridSize, m_params.particleRadius*2.0f, jitter, m_numParticles);
-            //}
-            //break;
-    //}
+            }
+            break;
+    }
 
     setArray(POSITION, m_hPos, 0, m_numParticles);
     setArray(VELOCITY, m_hVel, 0, m_numParticles);
 	setArray(CELLID, m_hCellID, 0, m_numParticles);
 	setArray(CELLTYPE, m_hCellType, 0, m_numParticles);
+
+	//Initialize states
+
+	setStates(m_dStates, m_numParticles);
 }
 
 void
@@ -587,4 +601,6 @@ ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacin
     setArray(VELOCITY, m_hVel, start, index);
 	setArray(CELLID, m_hCellID, start, index);
 	setArray(CELLTYPE, m_hCellType, 0, m_numParticles);
+
+	setStates(m_dStates, m_numParticles);
 }

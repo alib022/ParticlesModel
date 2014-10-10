@@ -53,7 +53,7 @@
 #define THRESHOLD         0.30f
 
 #define GRID_SIZE       64
-#define NUM_PARTICLES   1024
+#define NUM_PARTICLES  16384
 
 const uint width = 640, height = 480;
 
@@ -87,7 +87,7 @@ int numIterations = 0; // run until exit
 
 
 float timestep = 0.5f;
-float damping = 0.5f;
+float damping = 0.9f;
 float gravity = 0.5f;
 int iterations = 1;
 int ballr = 10;

@@ -126,7 +126,23 @@ __device__ uint calcGridHash(int3 gridPos)
     gridPos.x = gridPos.x & (params.gridSize.x-1);  // wrap grid, assumes size is power of 2
     gridPos.y = gridPos.y & (params.gridSize.y-1);
     gridPos.z = gridPos.z & (params.gridSize.z-1);
-    return __umul24(__umul24(gridPos.z, params.gridSize.y), params.gridSize.x) + __umul24(gridPos.y, params.gridSize.x) + gridPos.x;
+    float hash =  __umul24(__umul24(gridPos.z, params.gridSize.y), params.gridSize.x) + __umul24(gridPos.y, params.gridSize.x) + gridPos.x;
+	return hash;
+}
+
+//initialize states on device
+
+__global__ void setup_kernel(curandState *m_dStates, uint numParticles)
+{
+	uint index = blockDim.x * blockIdx.x + threadIdx.x;
+
+	if(index < numParticles)
+	{
+		curandState localState;
+		curand_init(1234, index, 0, &localState);
+		m_dStates[index] = localState;
+	}
+
 }
 
 // calculate grid hash value for each particle
@@ -158,11 +174,13 @@ void reorderDataAndFindCellStartD(uint   *cellStart,        // output: cell star
                                   uint   *cellEnd,          // output: cell end index
                                   float4 *sortedPos,        // output: sorted positions
                                   float4 *sortedVel,        // output: sorted velocities
-                                  uint   *gridParticleHash, // input: sorted grid hashes
+                                  curandState *sortedStates,
+								  uint   *gridParticleHash, // input: sorted grid hashes
                                   uint   *gridParticleIndex,// input: sorted particle indices
                                   float4 *oldPos,           // input: sorted position array
                                   float4 *oldVel,           // input: sorted velocity array
-                                  uint    numParticles)
+                                  curandState *oldStates,
+								  uint    numParticles)
 {
     extern __shared__ uint sharedHash[];    // blockSize + 1 elements
     uint index = __umul24(blockIdx.x,blockDim.x) + threadIdx.x;
@@ -213,13 +231,16 @@ void reorderDataAndFindCellStartD(uint   *cellStart,        // output: cell star
         uint sortedIndex = gridParticleIndex[index];
         float4 pos = FETCH(oldPos, sortedIndex);       // macro does either global read or texture fetch
         float4 vel = FETCH(oldVel, sortedIndex);       // see particles_kernel.cuh
+		curandState myState = FETCH(oldStates, sortedIndex);
 
         sortedPos[index] = pos;
         sortedVel[index] = vel;
+		sortedStates[index] = myState;
     }
 
 
 }
+
 
 // collide two spheres using DEM method
 __device__
@@ -229,7 +250,7 @@ float3 collideSpheres(float3 posA, float3 posB,
                       float attraction)
 {
     // calculate relative position
-    float3 relPos = posB - posA;
+	float3 relPos = posB - posA;
 
     float dist = length(relPos);
     float collideDist = radiusA + radiusB;
@@ -261,13 +282,12 @@ float3 collideSpheres(float3 posA, float3 posB,
 		//Intercellular Interaction Potential
 		//float dV2dr = 4* attraction * ( (6* pow(radiusA,6) )/pow(dist,7) - (12* pow(radiusB,12))/pow(dist,13));
 		//float dV2dr = 4 * attraction * ((pow(2*radiusA,12)/(pow(dist,12)))-(pow(2*radiusA,6)/ (pow(dist,6))));
-		float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5, 7)) - 12 / (radiusB * pow(2.5,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
+		float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
 		force -=  dV2dr*relPos;
     }
 
     return force;
 }
-
 
 
 // collide a particle against all other particles in a given cell
@@ -280,6 +300,7 @@ float3 collideCell(int3    gridPos,
                    float4 *oldVel,
                    uint   *cellStart,
                    uint   *cellEnd)
+				   
 {
     uint gridHash = calcGridHash(gridPos);
 
@@ -309,12 +330,12 @@ float3 collideCell(int3    gridPos,
     return force;
 }
 
-
 __global__
 void collideD(float4 *newVel,               // output: new velocity
               float4 *oldPos,               // input: sorted positions
               float4 *oldVel,               // input: sorted velocities
-              uint   *gridParticleIndex,    // input: sorted particle indices
+              curandState *oldStates,
+			  uint   *gridParticleIndex,    // input: sorted particle indices
               uint   *cellStart,
               uint   *cellEnd,
               uint    numParticles)
@@ -326,12 +347,14 @@ void collideD(float4 *newVel,               // output: new velocity
     // read particle data from sorted arrays
     float3 pos = make_float3(FETCH(oldPos, index));
     float3 vel = make_float3(FETCH(oldVel, index));
+	curandState myState = FETCH(oldStates, index);
 
     // get address in grid
     int3 gridPos = calcGridPos(pos);
 
     // examine neighbouring cells
     float3 force = make_float3(0.0f);
+	float3 relPos = make_float3(0.f, 0.f, 0.f);
 
     for (int z=-1; z<=1; z++)
     {
@@ -346,11 +369,20 @@ void collideD(float4 *newVel,               // output: new velocity
     }
 
     // collide with cursor sphere
-    force += collideSpheres(pos, params.colliderPos, vel, make_float3(0.0f, 0.0f, 0.0f), params.particleRadius, params.colliderRadius, 0.0f);
+    //force += collideSpheres(pos, params.colliderPos, vel, make_float3(0.0f, 0.0f, 0.0f), params.particleRadius, params.colliderRadius, 0.0f);
+
+	float3 noise = make_float3(curand_uniform(&myState) / 10.f, curand_uniform(&myState) / 10.f, curand_uniform(&myState) / 10.f) ;
+	//float3 velocity = make_float3(0.f, 0.f, 0.f);
+
+	vel.x = (pow(noise.x,2) - force.x) / 2;
+	vel.y = (pow(noise.y,2) - force.y) / 2;
+	vel.z = (pow(noise.z,2) - force.z) / 2;
+
 
     // write new velocity back to original unsorted location
     uint originalIndex = gridParticleIndex[index];
-    newVel[originalIndex] = make_float4(vel + force, 0.0f);
+    //newVel[originalIndex] = make_float4(vel + force, 0.0f);
+	newVel[originalIndex] = make_float4(vel.x, vel.y, vel.z, 0.f);
 }
 
 
