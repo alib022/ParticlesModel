@@ -175,11 +175,13 @@ void reorderDataAndFindCellStartD(uint   *cellStart,        // output: cell star
                                   float4 *sortedPos,        // output: sorted positions
                                   float4 *sortedVel,        // output: sorted velocities
                                   curandState *sortedStates,
+								  float *sortedType,
 								  uint   *gridParticleHash, // input: sorted grid hashes
                                   uint   *gridParticleIndex,// input: sorted particle indices
                                   float4 *oldPos,           // input: sorted position array
                                   float4 *oldVel,           // input: sorted velocity array
                                   curandState *oldStates,
+								  float *oldType,
 								  uint    numParticles)
 {
     extern __shared__ uint sharedHash[];    // blockSize + 1 elements
@@ -232,10 +234,12 @@ void reorderDataAndFindCellStartD(uint   *cellStart,        // output: cell star
         float4 pos = FETCH(oldPos, sortedIndex);       // macro does either global read or texture fetch
         float4 vel = FETCH(oldVel, sortedIndex);       // see particles_kernel.cuh
 		curandState myState = FETCH(oldStates, sortedIndex);
+		float type = FETCH (oldType, sortedIndex);
 
         sortedPos[index] = pos;
         sortedVel[index] = vel;
 		sortedStates[index] = myState;
+		sortedType[index] = type;
     }
 
 
@@ -246,6 +250,7 @@ void reorderDataAndFindCellStartD(uint   *cellStart,        // output: cell star
 __device__
 float3 collideSpheres(float3 posA, float3 posB,
                       float3 velA, float3 velB,
+					  float type, float type2,
                       float radiusA, float radiusB,
                       float attraction)
 {
@@ -270,7 +275,7 @@ float3 collideSpheres(float3 posA, float3 posB,
         float3 tanVel = relVel - (dot(relVel, norm) * norm);
 		
         // spring force
-        force = -params.spring*(collideDist - dist) * norm;
+        force = -params.spring*(collideDist - dist) * norm * 0.0001f;
         // dashpot (damping) force
         force += params.damping*relVel;
         // tangential shear force
@@ -296,8 +301,10 @@ float3 collideCell(int3    gridPos,
                    uint    index,
                    float3  pos,
                    float3  vel,
+				   float type,
                    float4 *oldPos,
                    float4 *oldVel,
+				   float *oldType,
                    uint   *cellStart,
                    uint   *cellEnd)
 				   
@@ -320,9 +327,10 @@ float3 collideCell(int3    gridPos,
             {
                 float3 pos2 = make_float3(FETCH(oldPos, j));
                 float3 vel2 = make_float3(FETCH(oldVel, j));
+				float type2 = FETCH(oldType, j);
 
                 // collide two spheres
-                force += collideSpheres(pos, pos2, vel, vel2, params.particleRadius, params.particleRadius, params.attraction);
+                force += collideSpheres(pos, pos2, vel, vel2, type, type2, params.particleRadius, params.particleRadius, params.attraction);
             }
         }
     }
@@ -335,6 +343,7 @@ void collideD(float4 *newVel,               // output: new velocity
               float4 *oldPos,               // input: sorted positions
               float4 *oldVel,               // input: sorted velocities
               curandState *oldStates,
+			  float *oldType,
 			  uint   *gridParticleIndex,    // input: sorted particle indices
               uint   *cellStart,
               uint   *cellEnd,
@@ -348,6 +357,7 @@ void collideD(float4 *newVel,               // output: new velocity
     float3 pos = make_float3(FETCH(oldPos, index));
     float3 vel = make_float3(FETCH(oldVel, index));
 	curandState myState = FETCH(oldStates, index);
+	float type = FETCH(oldType, index);
 
     // get address in grid
     int3 gridPos = calcGridPos(pos);
@@ -363,7 +373,7 @@ void collideD(float4 *newVel,               // output: new velocity
             for (int x=-1; x<=1; x++)
             {
                 int3 neighbourPos = gridPos + make_int3(x, y, z);
-                force += collideCell(neighbourPos, index, pos, vel, oldPos, oldVel, cellStart, cellEnd);
+                force += collideCell(neighbourPos, index, pos, vel, type, oldPos, oldVel, oldType, cellStart, cellEnd);
             }
         }
     }

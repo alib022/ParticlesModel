@@ -171,6 +171,7 @@ class ParticleSystem
 
         float *m_dSortedPos;
         float *m_dSortedVel;
+		float *m_dSortedCellType;
 		curandState *m_dSortedStates;
 
         // grid data for sorting method

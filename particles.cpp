@@ -87,13 +87,13 @@ int numIterations = 0; // run until exit
 
 
 float timestep = 0.5f;
-float damping = 0.9f;
+float damping = 0.5f;
 float gravity = 0.5f;
 int iterations = 1;
 int ballr = 10;
 
 float collideSpring = 0.05f;
-float collideDamping = 0.02f;
+float collideDamping = 0.008f;
 float collideShear = 0.1f;
 float collideAttraction = 0.05f;
 

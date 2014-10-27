@@ -44,11 +44,13 @@ extern "C"
                                      float *sortedPos,
                                      float *sortedVel,
 									 curandState *sortedStates,
+									 float *sortedType,
                                      uint  *gridParticleHash,
                                      uint  *gridParticleIndex,
                                      float *oldPos,
                                      float *oldVel,
 									 curandState *oldStates,
+									 float *oldType,
                                      uint   numParticles,
                                      uint   numCells);
 
@@ -56,6 +58,7 @@ extern "C"
                  float *sortedPos,
                  float *sortedVel,
 				 curandState *sortedStates,
+				 float *sortedType,
                  uint  *gridParticleIndex,
                  uint  *cellStart,
                  uint  *cellEnd,

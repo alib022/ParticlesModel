@@ -103,7 +103,7 @@ inline float lerp(float a, float b, float t)
 }
 
 // create a color ramp
-void colorRamp(float t, float *r)
+void colorRamp(float *r, float CellType)
 {
     const int ncolors = 7;
     float c[ncolors][3] =
@@ -116,12 +116,13 @@ void colorRamp(float t, float *r)
         { 0.0, 0.0, 1.0, },
         { 1.0, 0.0, 1.0, },
     };
-    t = t * (ncolors-1);
-    int i = (int) t;
-    float u = t - floor(t);
-    r[0] = lerp(c[i][0], c[i+1][0], u);
-    r[1] = lerp(c[i][1], c[i+1][1], u);
-    r[2] = lerp(c[i][2], c[i+1][2], u);
+   
+	if (CellType == 1.0f)
+		r[0] = c[1][0];
+	else if (CellType == 2.0f)
+		r[1] = c[6][0];
+	
+    
 }
 
 void
@@ -179,6 +180,9 @@ ParticleSystem::_initialize(int numParticles)
     allocateArray((void **)&m_dCellStart, m_numGridCells*sizeof(uint));
     allocateArray((void **)&m_dCellEnd, m_numGridCells*sizeof(uint));
 
+	allocateArray ((void**)&m_dCellType, memSize);
+	allocateArray ((void**)&m_dSortedCellType, memSize);
+
     if (m_bUseOpenGL)
     {
         m_colorVBO = createVBO(m_numParticles*4*sizeof(float));
@@ -191,16 +195,19 @@ ParticleSystem::_initialize(int numParticles)
 
         for (uint i=0; i<m_numParticles; i++)
         {
+
+			m_hCellType[i] = (float)(rand() % (3 - 1) + 1);
             float t = i / (float) m_numParticles;
-#if 0
-            *ptr++ = rand() / (float) RAND_MAX;
-            *ptr++ = rand() / (float) RAND_MAX;
-            *ptr++ = rand() / (float) RAND_MAX;
-#else
-            colorRamp(t, ptr);
+//#if 0
+//            *ptr++ = rand() / (float) RAND_MAX;
+//            *ptr++ = rand() / (float) RAND_MAX;
+//            *ptr++ = rand() / (float) RAND_MAX;
+//#else
+            colorRamp(ptr, m_hCellType[i]);
             ptr+=3;
-#endif
+//#endif
             *ptr++ = 1.0f;
+			
         }
 
         glUnmapBufferARB(GL_ARRAY_BUFFER);
@@ -386,6 +393,10 @@ ParticleSystem::getArray(ParticleArray array)
             ddata = m_dVel;
             break;
 
+		case CELLTYPE:
+			hdata = m_hCellType;
+			ddata = m_dCellType;
+			break;
 		case CELLID:
 			hdata = m_hCellID;
 			ddata = m_dCellID;
@@ -461,6 +472,8 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
                     m_hVel[i*4+1] = 0.0f;
                     m_hVel[i*4+2] = 0.0f;
                     m_hVel[i*4+3] = 0.0f;
+
+					m_hCellType[i] = (float)(rand() % ((3+1) - 1) + 1);
                 }
             }
         }
@@ -583,15 +596,15 @@ ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacin
                     m_hVel[index*4+2] = vel[2];
                     m_hVel[index*4+3] = vel[3];
 
-					m_hCellType[index] = (float)(rand() % ((3+1) - 1) + 1);
+					m_hCellType[index] = (float)(rand() % (3 - 1) + 1);
                     
 
-					std::cout <<"Particle CellType:" << m_hCellType[index] <<"\n";
-				  std::cout <<"Particle PosX:" << m_hPos[index*4] <<"\n";
+					//std::cout <<"Particle CellType:" << m_hCellType[index] <<"\n";
+				  //std::cout <<"Particle PosX:" << m_hPos[index*4] <<"\n";
 	  
 				  index++;
 
-				  std::cout <<"----------------------------"  <<"\n";
+				  //std::cout <<"----------------------------"  <<"\n";
                 }
             }
         }
