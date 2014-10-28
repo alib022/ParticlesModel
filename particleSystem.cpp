@@ -442,7 +442,7 @@ ParticleSystem::setArray(ParticleArray array, const float *data, int start, int 
 			break;
 
 		case CELLTYPE:
-			cudaMemcpy(m_dCellType, data, start*sizeof(float), cudaMemcpyHostToDevice);
+			cudaMemcpy(m_dCellType, data, count*sizeof(float), cudaMemcpyHostToDevice);
 			break;
     }
 }
@@ -477,7 +477,7 @@ ParticleSystem::initGrid(uint *size, float spacing, float jitter, uint numPartic
                     m_hVel[i*4+2] = 0.0f;
                     m_hVel[i*4+3] = 0.0f;
 
-					m_hCellType[i] = (float)(rand() % ((3+1) - 1) + 1);
+					//m_hCellType[i] = (float)(rand() % ((3+1) - 1) + 1);
                 }
             }
         }
@@ -600,7 +600,7 @@ ParticleSystem::addSphere(int start, float *pos, float *vel, int r, float spacin
                     m_hVel[index*4+2] = vel[2];
                     m_hVel[index*4+3] = vel[3];
 
-					m_hCellType[index] = (float)(rand() % (3 - 1) + 1);
+					//m_hCellType[index] = (float)(rand() % (3 - 1) + 1);
                     
 
 					//std::cout <<"Particle CellType:" << m_hCellType[index] <<"\n";
