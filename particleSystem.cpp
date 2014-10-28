@@ -180,8 +180,8 @@ ParticleSystem::_initialize(int numParticles)
     allocateArray((void **)&m_dCellStart, m_numGridCells*sizeof(uint));
     allocateArray((void **)&m_dCellEnd, m_numGridCells*sizeof(uint));
 
-	allocateArray ((void**)&m_dCellType, memSize);
-	allocateArray ((void**)&m_dSortedCellType, memSize);
+	allocateArray ((void **)&m_dCellType, memSize);
+	allocateArray ((void **)&m_dSortedCellType, memSize);
 
     if (m_bUseOpenGL)
     {
@@ -239,6 +239,7 @@ ParticleSystem::_finalize()
     freeArray(m_dSortedPos);
     freeArray(m_dSortedVel);
 	freeArray(m_dSortedStates);
+	freeArray(m_dSortedCellType);
 
     freeArray(m_dGridParticleHash);
     freeArray(m_dGridParticleIndex);
@@ -303,11 +304,13 @@ ParticleSystem::update(float deltaTime)
         m_dSortedPos,
         m_dSortedVel,
 		m_dSortedStates,
+		m_dSortedCellType,
         m_dGridParticleHash,
         m_dGridParticleIndex,
         dPos,
         m_dVel,
 		m_dStates,
+		m_dCellType,
         m_numParticles,
         m_numGridCells);
 
@@ -317,6 +320,7 @@ ParticleSystem::update(float deltaTime)
         m_dSortedPos,
         m_dSortedVel,
 		m_dSortedStates,
+		m_dSortedCellType,
         m_dGridParticleIndex,
         m_dCellStart,
         m_dCellEnd,

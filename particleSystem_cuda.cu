@@ -219,13 +219,13 @@ extern "C"
             (float4 *) sortedPos,
             (float4 *) sortedVel,
 			sortedStates,
-			(float *) sortedType,
+			(float *) sortedtype,
             gridParticleHash,
             gridParticleIndex,
             (float4 *) oldPos,
             (float4 *) oldVel,
 			oldStates,
-			(float *) oldtype,
+			(float *) oldType,
             numParticles);
         getLastCudaError("Kernel execution failed: reorderDataAndFindCellStartD");
 
@@ -239,7 +239,7 @@ extern "C"
                  float *sortedPos,
                  float *sortedVel,
 				 curandState *sortedStates,
-				 float *sortedType,
+				 float *sortedtype,
                  uint  *gridParticleIndex,
                  uint  *cellStart,
                  uint  *cellEnd,
@@ -262,7 +262,7 @@ extern "C"
                                               (float4 *)sortedPos,
                                               (float4 *)sortedVel,
 											  sortedStates,
-											  sortedType,
+											  sortedtype,
                                               gridParticleIndex,
                                               cellStart,
                                               cellEnd,
