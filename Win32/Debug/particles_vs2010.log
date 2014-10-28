@@ -1,99 +1,72 @@
-﻿Build started 10/28/2014 11:47:40 AM.
+﻿Build started 10/28/2014 12:33:21 PM.
      1>Project "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particles_vs2010.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Win32/Debug/particles.unsuccessfulbuild" because "AlwaysCreate" was specified.
        AddCudaCompileDeps:
-       Skipping target "AddCudaCompileDeps" because all output files are up-to-date with respect to the input files.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /DWIN32 /DWIN32 /D_MBCS /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" /I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /I. /FIcuda_runtime.h /c C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particleSystem_cuda.cu 
        AddCudaCompilePropsDeps:
        Skipping target "AddCudaCompilePropsDeps" because all output files are up-to-date with respect to the input files.
        AddCudaCompilePropsDeps:
        Skipping target "AddCudaCompilePropsDeps" because all output files are up-to-date with respect to the input files.
        CudaBuild:
-       Skipping target "CudaBuild" because all output files are up-to-date with respect to the input files.
+         Compiling CUDA source file particleSystem_cuda.cu...
+         cmd.exe /C "C:\Users\Shailesh\AppData\Local\Temp\tmp9e39982d395647e7ac11fd80e0c17e48.cmd"
+         "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" -gencode=arch=compute_20,code=\"sm_20,compute_20\" -gencode=arch=compute_30,code=\"sm_30,compute_30\" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env --cl-version 2010 -ccbin "c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include"  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static -Xcompiler "/wd 4819"  -g   -DWIN32 -DWIN32 -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MTd  " -o Win32/Debug/particleSystem_cuda.cu.obj "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particleSystem_cuda.cu"
+         
+         C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" -gencode=arch=compute_20,code=\"sm_20,compute_20\" -gencode=arch=compute_30,code=\"sm_30,compute_30\" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env --cl-version 2010 -ccbin "c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include"  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static -Xcompiler "/wd 4819"  -g   -DWIN32 -DWIN32 -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MTd  " -o Win32/Debug/particleSystem_cuda.cu.obj "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particleSystem_cuda.cu" 
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
+         
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(29): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(31): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(29): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(31): warning : Cannot tell what pointer points to, assuming global memory space
+         ptxas C:/Users/Shailesh/AppData/Local/Temp/tmpxft_00002a08_00000000-13_particleSystem_cuda.compute_10.ptx, line 2140; : warning : Double is not supported. Demoting to float
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
+         
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
+         
+     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
+         
        CudaBuild:
          Skipping CUDA source file particles_kernel.cuh (excluded from build).
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Win32/Debug/" /Fd"Win32/Debug/vc100.pdb" /Gd /TP /analyze- /errorReport:prompt particleSystem.cpp
-         particleSystem.cpp
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(112): warning C4244: '=' : conversion from 'uint64' to 'uint32', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(113): warning C4244: '+=' : conversion from 'uint64' to 'unsigned int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(125): warning C4244: '=' : conversion from 'uint64' to 'uint32', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(126): warning C4244: '+=' : conversion from 'uint64' to 'unsigned int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(133): warning C4244: '=' : conversion from 'uint64' to 'uint32', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(134): warning C4244: '+=' : conversion from 'uint64' to 'unsigned int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(146): warning C4244: '=' : conversion from 'uint64' to 'uint32', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(147): warning C4244: '+=' : conversion from 'uint64' to 'unsigned int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(154): warning C4244: 'initializing' : conversion from 'uint64' to 'int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(155): warning C4244: '=' : conversion from 'uint64' to 'int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(158): warning C4244: '+=' : conversion from 'uint64' to 'unsigned int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(172): warning C4244: 'initializing' : conversion from 'uint64' to 'int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(173): warning C4244: '=' : conversion from 'uint64' to 'int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_philox4x32_x.h(176): warning C4244: '+=' : conversion from 'uint64' to 'unsigned int', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(127): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(159): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(170): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(171): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(172): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(173): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(174): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(175): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(188): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(205): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(206): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(207): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(208): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(209): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(210): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(221): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(715): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(718): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(737): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(740): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(760): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(769): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(790): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(793): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(592): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-                 c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(718) : see reference to function template instantiation 'unsigned int curand_poisson_gammainc<curandStateXORWOW_t*>(T,float)' being compiled
-                 with
-                 [
-                     T=curandStateXORWOW_t *
-                 ]
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(592): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(594): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(592): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-                 c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(740) : see reference to function template instantiation 'unsigned int curand_poisson_gammainc<curandStatePhilox4_32_10_t*>(T,float)' being compiled
-                 with
-                 [
-                     T=curandStatePhilox4_32_10_t *
-                 ]
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(592): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(594): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(612): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-                 c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(769) : see reference to function template instantiation 'uint4 curand_poisson_gammainc4<curandStatePhilox4_32_10_t*>(T,float)' being compiled
-                 with
-                 [
-                     T=curandStatePhilox4_32_10_t *
-                 ]
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(612): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(614): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(625): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(625): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(627): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(638): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(638): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(640): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(651): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(651): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(653): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(592): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-                 c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(793) : see reference to function template instantiation 'unsigned int curand_poisson_gammainc<curandStateMRG32k3a_t*>(T,float)' being compiled
-                 with
-                 [
-                     T=curandStateMRG32k3a_t *
-                 ]
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(592): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\program files\nvidia gpu computing toolkit\cuda\v5.5\include\curand_poisson.h(594): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         All outputs are up-to-date.
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../bin/win32/Debug//particles.exe" /NOLOGO /LIBPATH:"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\lib\Win32" /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32" cudart_static.lib freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Win32/Debug/particles.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Shailesh\Downloads\Multiphysics\bin\win32\Debug\particles.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../bin/win32/Debug/particles.lib" /MACHINE:X86 Win32/Debug/particleSystem_cuda.cu.obj
          Win32/Debug/particles.obj
@@ -112,4 +85,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.06
+Time Elapsed 00:02:07.38

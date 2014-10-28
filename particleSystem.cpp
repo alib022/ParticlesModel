@@ -317,6 +317,8 @@ ParticleSystem::update(float deltaTime)
     // process collisions
     collide(
         m_dVel,
+		m_dStates,
+		m_dCellType,
         m_dSortedPos,
         m_dSortedVel,
 		m_dSortedStates,

@@ -287,8 +287,16 @@ float3 collideSpheres(float3 posA, float3 posB,
 		//Intercellular Interaction Potential
 		//float dV2dr = 4* attraction * ( (6* pow(radiusA,6) )/pow(dist,7) - (12* pow(radiusB,12))/pow(dist,13));
 		//float dV2dr = 4 * attraction * ((pow(2*radiusA,12)/(pow(dist,12)))-(pow(2*radiusA,6)/ (pow(dist,6))));
-		float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
-		force -=  dV2dr*relPos;
+		if(type == type2)
+		{
+			float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
+			force -=  dV2dr*relPos;
+		}
+		else
+		{
+			float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
+			force +=  dV2dr*relPos;
+		}
     }
 
     return force;
@@ -340,6 +348,8 @@ float3 collideCell(int3    gridPos,
 
 __global__
 void collideD(float4 *newVel,               // output: new velocity
+			  curandState *newState,
+			  float *newCellType,
               float4 *oldPos,               // input: sorted positions
               float4 *oldVel,               // input: sorted velocities
               curandState *oldStates,
@@ -393,6 +403,8 @@ void collideD(float4 *newVel,               // output: new velocity
     uint originalIndex = gridParticleIndex[index];
     //newVel[originalIndex] = make_float4(vel + force, 0.0f);
 	newVel[originalIndex] = make_float4(vel.x, vel.y, vel.z, 0.f);
+	newState[originalIndex] = myState;
+	newCellType[originalIndex] = type;
 }
 
 

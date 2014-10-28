@@ -55,6 +55,8 @@ extern "C"
                                      uint   numCells);
 
     void collide(float *newVel,
+				 curandState *newState,
+				 float *newCellType,
                  float *sortedPos,
                  float *sortedVel,
 				 curandState *sortedStates,

@@ -236,6 +236,8 @@ extern "C"
     }
 
     void collide(float *newVel,
+				 curandState *newState, 
+				 float *newCellType,
                  float *sortedPos,
                  float *sortedVel,
 				 curandState *sortedStates,
@@ -259,6 +261,8 @@ extern "C"
 
         // execute the kernel
         collideD<<< numBlocks, numThreads >>>((float4 *)newVel,
+											  newState,
+											  newCellType,
                                               (float4 *)sortedPos,
                                               (float4 *)sortedVel,
 											  sortedStates,
