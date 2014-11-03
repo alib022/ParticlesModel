@@ -56,12 +56,12 @@ struct integrate_functor
         float3 vel = make_float3(velData.x, velData.y, velData.z);
 
         vel += params.gravity * deltaTime;
-        vel *= params.globalDamping;
+        vel *=   params.globalDamping;
 
 		
 
         // new position = old position + velocity * deltaTime
-        pos += vel * deltaTime;
+        pos += vel ;//* deltaTime;
 
         // set this to zero to disable collisions with cube sides
 #if 1
@@ -275,11 +275,11 @@ float3 collideSpheres(float3 posA, float3 posB,
         float3 tanVel = relVel - (dot(relVel, norm) * norm);
 		
         // spring force
-        force = -params.spring*(collideDist - dist) * norm * 0.0001f;
+        //force = -params.spring*(collideDist - dist) * norm * 0.0001f;
         // dashpot (damping) force
-        force += params.damping*relVel;
+        //force += params.damping*relVel;
         // tangential shear force
-        force += params.shear*tanVel;
+        //force += params.shear*tanVel;
         // attraction
         //force += attraction*relPos;
 
@@ -287,16 +287,27 @@ float3 collideSpheres(float3 posA, float3 posB,
 		//Intercellular Interaction Potential
 		//float dV2dr = 4* attraction * ( (6* pow(radiusA,6) )/pow(dist,7) - (12* pow(radiusB,12))/pow(dist,13));
 		//float dV2dr = 4 * attraction * ((pow(2*radiusA,12)/(pow(dist,12)))-(pow(2*radiusA,6)/ (pow(dist,6))));
-		if(type == type2)
+		
+		float attraction2 = attraction;
+
+		if(type == 1)
 		{
-			float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
-			force -=  dV2dr*relPos;
+			attraction2 = 8 * attraction;
+			
 		}
-		else
+		else if (type == 2)
 		{
-			float dV2dr = 4 * attraction * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
-			force +=  dV2dr*relPos;
+			
+			attraction2 = 5 * attraction;
+			
 		}
+		/*else
+		{
+			attraction2 = -1 * attraction;
+		}*/
+
+		float dV2dr = 4 * attraction2 * (6 / (radiusA * pow (2.5f, 7)) - 12 / (radiusB * pow(2.5f,13)));   //<-- corrected Intercellular Interaction Force  Ref: http://en.wikipedia.org/wiki/Lennard-Jones_potential
+		force -=  dV2dr*relPos;
     }
 
     return force;
@@ -391,12 +402,12 @@ void collideD(float4 *newVel,               // output: new velocity
     // collide with cursor sphere
     //force += collideSpheres(pos, params.colliderPos, vel, make_float3(0.0f, 0.0f, 0.0f), params.particleRadius, params.colliderRadius, 0.0f);
 
-	float3 noise = make_float3(curand_uniform(&myState) / 10.f, curand_uniform(&myState) / 10.f, curand_uniform(&myState) / 10.f) ;
+	float3 noise = make_float3(curand_uniform(&myState) / 1000.f, curand_uniform(&myState) / 1000.f, curand_uniform(&myState) / 1000.f) ;
 	//float3 velocity = make_float3(0.f, 0.f, 0.f);
 
-	vel.x = (pow(noise.x,2) - force.x) / 2;
-	vel.y = (pow(noise.y,2) - force.y) / 2;
-	vel.z = (pow(noise.z,2) - force.z) / 2;
+	vel.x = (noise.x - force.x) / 5.0f;
+	vel.y = (noise.y - force.y) / 5.0f;
+	vel.z = (noise.z - force.z) / 5.0f;
 
 
     // write new velocity back to original unsorted location

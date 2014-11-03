@@ -1,88 +1,12 @@
-﻿Build started 10/28/2014 12:33:21 PM.
-     1>Project "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particles_vs2010.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Win32/Debug/particles.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       AddCudaCompileDeps:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /DWIN32 /DWIN32 /D_MBCS /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" /I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" /I. /FIcuda_runtime.h /c C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particleSystem_cuda.cu 
-       AddCudaCompilePropsDeps:
-       Skipping target "AddCudaCompilePropsDeps" because all output files are up-to-date with respect to the input files.
-       AddCudaCompilePropsDeps:
-       Skipping target "AddCudaCompilePropsDeps" because all output files are up-to-date with respect to the input files.
-       CudaBuild:
-         Compiling CUDA source file particleSystem_cuda.cu...
-         cmd.exe /C "C:\Users\Shailesh\AppData\Local\Temp\tmp9e39982d395647e7ac11fd80e0c17e48.cmd"
-         "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" -gencode=arch=compute_20,code=\"sm_20,compute_20\" -gencode=arch=compute_30,code=\"sm_30,compute_30\" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env --cl-version 2010 -ccbin "c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include"  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static -Xcompiler "/wd 4819"  -g   -DWIN32 -DWIN32 -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MTd  " -o Win32/Debug/particleSystem_cuda.cu.obj "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particleSystem_cuda.cu"
-         
-         C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" -gencode=arch=compute_20,code=\"sm_20,compute_20\" -gencode=arch=compute_30,code=\"sm_30,compute_30\" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env --cl-version 2010 -ccbin "c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include"  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static -Xcompiler "/wd 4819"  -g   -DWIN32 -DWIN32 -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MTd  " -o Win32/Debug/particleSystem_cuda.cu.obj "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particleSystem_cuda.cu" 
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
-         
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(53): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(54): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(108): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-         ./c:\users\shailesh\downloads\multiphysics\multiphyics\particlesmodel\particles_kernel_impl.cuh(109): Warning: Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(29): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(31): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(29): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(31): warning : Cannot tell what pointer points to, assuming global memory space
-         ptxas C:/Users/Shailesh/AppData/Local/Temp/tmpxft_00002a08_00000000-13_particleSystem_cuda.compute_10.ptx, line 2140; : warning : Double is not supported. Demoting to float
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
-         
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
-         
-     1>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
-         
-       CudaBuild:
-         Skipping CUDA source file particles_kernel.cuh (excluded from build).
-       ClCompile:
-         All outputs are up-to-date.
-       Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../bin/win32/Debug//particles.exe" /NOLOGO /LIBPATH:"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\lib\Win32" /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32" cudart_static.lib freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Win32/Debug/particles.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Shailesh\Downloads\Multiphysics\bin\win32\Debug\particles.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../bin/win32/Debug/particles.lib" /MACHINE:X86 Win32/Debug/particleSystem_cuda.cu.obj
-         Win32/Debug/particles.obj
-         Win32/Debug/particleSystem.obj
-         Win32/Debug/render_particles.obj
-         Win32/Debug/shaders.obj
-         LINK : ../../bin/win32/Debug//particles.exe not found or not built by the last incremental link; performing full link
-            Creating library ../../bin/win32/Debug/particles.lib and object ../../bin/win32/Debug/particles.exp
-         particles_vs2010.vcxproj -> C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\../../bin/win32/Debug/particles.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"../../bin/win32/Debug//particles.exe;#1" /manifest Win32/Debug/particles.exe.intermediate.manifest
-       FinalizeBuildStatus:
-         Deleting file "Win32/Debug/particles.unsuccessfulbuild".
-         Touching "Win32/Debug/particles.lastbuildstate".
-     1>Done Building Project "C:\Users\Shailesh\Downloads\Multiphysics\Multiphyics\ParticlesModel\particles_vs2010.vcxproj" (build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:02:07.38
+﻿  Compiling CUDA source file particleSystem_cuda.cu...
+  
+  E:\Particle Base Modeling\ParticleModel\ParticlesModel>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" -gencode=arch=compute_20,code=\"sm_20,compute_20\" -gencode=arch=compute_30,code=\"sm_30,compute_30\" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env --cl-version 2010 -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\ProgramData\NVIDIA Corporation\CUDA Samples\v5.5\common\inc" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include"  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static -Xcompiler "/wd 4819"  -g   -DWIN32 -DWIN32 -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MTd  " -o Win32/Debug/particleSystem_cuda.cu.obj "E:\Particle Base Modeling\ParticleModel\ParticlesModel\particleSystem_cuda.cu" 
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\curand_kernel.h(405): warning : missing return statement at end of non-void function "__curand_uint32_as_float"
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(29): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(31): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(29): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(30): warning : Cannot tell what pointer points to, assuming global memory space
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include\thrust/detail/swap.h(31): warning : Cannot tell what pointer points to, assuming global memory space
